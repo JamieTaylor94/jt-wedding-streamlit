@@ -13,17 +13,19 @@ st.markdown("""
         padding: 2rem;
         margin-bottom: 2rem;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        color: #111111;  /* ensures dark-mode visibility */
     }
     .guest-header {
         font-size: 1.6rem;
         font-weight: 700;
-        color: #222222;
+        color: #111111;
         margin-bottom: 1.2rem;
     }
     .meal-entry {
         font-size: 1.3rem;
         line-height: 1.8;
         margin-top: 0.5rem;
+        color: #111111;
     }
 </style>
 """, unsafe_allow_html=True)
