@@ -5,6 +5,7 @@ from boto3.dynamodb.types import TypeDeserializer
 from dateutil.parser import parse as parse_date
 
 st.set_page_config(page_title="Wedding RSVP Viewer", layout="wide")
+
 st.markdown("""
 <style>
     .guest-card {
@@ -76,8 +77,8 @@ else:
                     st.markdown(f"""
                         <div class='guest-card'>
                             <div class='guest-header'>👤 Guest {i}: {name} ({'Child' if is_child == 'Yes' else 'Adult'})</div>
-                            <div class='meal-entry'><b>Starter:</b> {meal.get("Starter", "N/A")}</div>
-                            <div class='meal-entry'><b>Main:</b> {meal.get("Main", "N/A")}</div>
-                            <div class='meal-entry'><b>Dessert:</b> {meal.get("Dessert", "N/A")}</div>
+                            <div class='meal-entry' style='color: #111111;'><b style='color: #111111;'>Starter:</b> {meal.get("Starter", "N/A")}</div>
+                            <div class='meal-entry' style='color: #111111;'><b style='color: #111111;'>Main:</b> {meal.get("Main", "N/A")}</div>
+                            <div class='meal-entry' style='color: #111111;'><b style='color: #111111;'>Dessert:</b> {meal.get("Dessert", "N/A")}</div>
                         </div>
                     """, unsafe_allow_html=True)
