@@ -4,40 +4,41 @@ from datetime import datetime
 from boto3.dynamodb.types import TypeDeserializer
 from dateutil.parser import parse as parse_date
 
+# Page config
 st.set_page_config(page_title="Wedding RSVP Viewer", layout="wide")
-
 st.markdown("""
 <style>
+    /* Force light background and text */
+    html, body, [class*="st-"] {
+        background-color: #f8f9fa !important;
+        color: #212529 !important;
+    }
+
     .guest-card {
-        background-color: #ffffff;
+        background-color: #ffffff !important;
         border-radius: 12px;
         padding: 2rem;
         margin-bottom: 2rem;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        color: #111111; /* fallback default */
     }
     .guest-header {
         font-size: 1.6rem;
         font-weight: 700;
-        color: #111111;
+        color: #222222;
         margin-bottom: 1.2rem;
     }
     .meal-entry {
         font-size: 1.3rem;
         line-height: 1.8;
         margin-top: 0.5rem;
-        color: #222222 !important;  /* Ensure visibility */
-    }
-    .meal-entry b {
-        color: #222222 !important;  /* Make labels like Starter: visible */
     }
 </style>
 """, unsafe_allow_html=True)
 
 st.title("🎉 Wedding RSVP Submissions")
 
+# AWS DynamoDB config from secrets
 aws = st.secrets["aws"]
-
 dynamodb = boto3.client(
     'dynamodb',
     region_name=aws["region_name"],
