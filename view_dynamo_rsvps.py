@@ -59,6 +59,18 @@ def fetch_submissions():
 
 submissions = fetch_submissions()
 
+# ✅ Calculate total guests with 0.5 weight for children
+total_guests = 0
+for submission in submissions:
+    guests = submission.get("Guests", [])
+    for guest in guests:
+        is_child = guest.get("IsChild", 0)
+        total_guests += 0.5 if is_child == 1 else 1
+
+# ✅ Show guest count summary
+st.markdown(f"### 🧮 Total Guests: **{total_guests}** (Children count as 0.5)")
+
+# Continue with the original rendering logic
 if not submissions:
     st.info("No submissions found.")
 else:
