@@ -59,16 +59,39 @@ def fetch_submissions():
 
 submissions = fetch_submissions()
 
-# ✅ Calculate total guests with 0.5 weight for children
-total_guests = 0
+# ✅ Calculate total guests, total children, and weighted count
+total_guests_count = 0
+total_children_count = 0
+weighted_count = 0
+
 for submission in submissions:
     guests = submission.get("Guests", [])
     for guest in guests:
+        name = guest.get("Name", "").lower()
         is_child = guest.get("IsChild", 0)
-        total_guests += 0.5 if is_child == 1 else 1
+        total_guests_count += 1
+        if is_child == 1:
+            total_children_count += 1
+            weighted_count += 0.5
+        else:
+            weighted_count += 1
+
+# ✅ Minus 1 adult for Kathryn duplicate
+# Adjust only once overall (outside loop) to avoid multiple deductions if multiple entries exist
+weighted_count -= 1
+total_guests_count -= 1
+
+# ✅ Ensure counts do not go negative accidentally
+if weighted_count < 0:
+    weighted_count = 0
+if total_guests_count < 0:
+    total_guests_count = 0
 
 # ✅ Show guest count summary
-st.markdown(f"### 🧮 Total Guests: **{total_guests}** (Children count as 0.5)")
+st.markdown(f"### 🧮 Guest Summary")
+st.markdown(f"- **Total Guests (incl. children, adjusted):** {total_guests_count}")
+st.markdown(f"- **Total Children:** {total_children_count}")
+st.markdown(f"- **Weighted Count (children = 0.5, minus Kathryn):** {weighted_count}")
 
 # Continue with the original rendering logic
 if not submissions:
